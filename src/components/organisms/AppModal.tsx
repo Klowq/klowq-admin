@@ -3,13 +3,19 @@ import React from 'react';
 interface AppModalProps {
   children: React.ReactNode;
   mode?: boolean;
+  onClose?: () => void;
 }
 
-export default function AppModal({ children, mode = false }: AppModalProps) {
+export default function AppModal({ children, mode = false, onClose }: AppModalProps) {
   return mode ? (
-    <div className="bg-gray-400/20 flex items-center backdrop-blur-xl z-50 h-screen w-screen fixed top-0 right-0">
-      <div className="w-screen p-3">
-        <div className="relative">{children}</div>
+    <div
+      className="bg-gray-400/20 flex items-center justify-center backdrop-blur-xl z-50 h-screen w-screen fixed inset-0 p-4"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div className="relative max-h-full overflow-auto" onClick={(e) => e.stopPropagation()}>
+        {children}
       </div>
     </div>
   ) : null;

@@ -159,7 +159,7 @@
     "id": "pref-1763532181051-26",
     "name": "Medical Robotics",
     "createdAt": "2025-11-19T06:03:01.051Z",
-    "updatedAt": "2025-11-19T06:03:01.051Z"
+    "updatedAt": "2026-02-18T17:00:42.858Z"
   },
   {
     "id": "pref-1763532181051-27",
@@ -334,5 +334,11 @@
     "name": "Sexual Consent & Safety",
     "createdAt": "2025-11-19T06:03:01.052Z",
     "updatedAt": "2025-11-19T06:03:01.052Z"
+  },
+  {
+    "name": "others",
+    "id": "pref-1771433991754-usxegnnjc",
+    "createdAt": "2026-02-18T16:59:51.754Z",
+    "updatedAt": "2026-02-18T17:00:07.322Z"
   }
 ]
