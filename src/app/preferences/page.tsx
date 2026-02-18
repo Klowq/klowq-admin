@@ -137,8 +137,8 @@ export default function PreferencesPage() {
     return (
       <DashboardLayout>
         <div className="p-6 max-w-4xl mx-auto">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Preferences Management</h1>
-          <p className="text-gray-500">Loading…</p>
+          <h1 className="text-2xl font-bold text-foreground mb-2">Preferences Management</h1>
+          <p className="text-muted-foreground">Loading…</p>
         </div>
       </DashboardLayout>
     );
@@ -149,13 +149,13 @@ export default function PreferencesPage() {
       <div className="p-6 max-w-4xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Preferences Management</h1>
-            <p className="text-sm text-gray-500 mt-0.5">Manage categories and tags for your content.</p>
+            <h1 className="text-2xl font-bold text-foreground">Preferences Management</h1>
+            <p className="text-sm text-muted-foreground mt-0.5">Manage categories and tags for your content.</p>
           </div>
           <button
             type="button"
             onClick={() => setShowAddModal(true)}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#3C3C6F] text-white font-medium hover:bg-[#2d2d52] focus:outline-none focus:ring-2 focus:ring-[#3C3C6F]/40 transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/40 transition-colors"
           >
             <HiOutlinePlus className="w-5 h-5" />
             Add Preference
@@ -163,41 +163,41 @@ export default function PreferencesPage() {
         </div>
 
         {error && (
-          <div className="mb-6 rounded-lg bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-700">
+          <div className="mb-6 rounded-lg bg-destructive/20 border border-destructive/30 px-4 py-3 text-sm text-destructive">
             {error}
           </div>
         )}
 
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-          <div className="p-4 border-b border-gray-100 bg-gray-50/50">
+        <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+          <div className="p-4 border-b border-border bg-muted/30">
             <div className="relative max-w-xs">
-              <HiOutlineSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" aria-hidden />
+              <HiOutlineSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" aria-hidden />
               <input
                 type="search"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search preferences…"
                 aria-label="Search preferences"
-                className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#3C3C6F]/20 focus:border-[#3C3C6F] text-sm"
+                className="w-full pl-10 pr-4 py-2 rounded-lg border border-border bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-sm"
               />
             </div>
           </div>
 
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-border">
             {preferences.length === 0 ? (
-              <div className="p-12 text-center text-gray-500">
+              <div className="p-12 text-center text-muted-foreground">
                 <p className="font-medium">No preferences yet</p>
                 <p className="text-sm mt-1">Add your first preference using the button above.</p>
               </div>
             ) : filteredPreferences.length === 0 ? (
-              <div className="p-12 text-center text-gray-500">
+              <div className="p-12 text-center text-muted-foreground">
                 <p>No preferences match your search.</p>
               </div>
             ) : (
               paginatedPreferences.map((pref) => (
                 <div
                   key={pref.id}
-                  className="flex items-center justify-between gap-4 px-4 py-3 hover:bg-gray-50/50 transition-colors"
+                  className="flex items-center justify-between gap-4 px-4 py-3 hover:bg-muted/30 transition-colors"
                 >
                   {editingId === pref.id ? (
                     <div className="flex items-center gap-2 flex-1 min-w-0">
@@ -209,14 +209,14 @@ export default function PreferencesPage() {
                         placeholder="Preference name"
                         title="Edit preference name"
                         aria-label="Edit preference name"
-                        className="flex-1 min-w-0 px-3 py-2 rounded-lg border border-gray-200 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#3C3C6F]/20 focus:border-[#3C3C6F] text-sm"
+                        className="flex-1 min-w-0 px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-sm"
                         autoFocus
                       />
                       <button
                         type="button"
                         onClick={() => handleUpdate(pref.id)}
                         disabled={saving || !editName.trim()}
-                        className="px-3 py-2 rounded-lg bg-[#3C3C6F] text-white text-sm font-medium hover:bg-[#2d2d52] disabled:opacity-50 shrink-0"
+                        className="px-3 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 disabled:opacity-50 shrink-0"
                       >
                         {saving ? 'Saving…' : 'Save'}
                       </button>
@@ -224,19 +224,19 @@ export default function PreferencesPage() {
                         type="button"
                         onClick={cancelEdit}
                         disabled={saving}
-                        className="px-3 py-2 rounded-lg border border-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-50 disabled:opacity-50 shrink-0"
+                        className="px-3 py-2 rounded-lg border border-border text-foreground text-sm font-medium hover:bg-muted disabled:opacity-50 shrink-0"
                       >
                         Cancel
                       </button>
                     </div>
                   ) : (
                     <>
-                      <span className="font-medium text-gray-900 truncate">{pref.name}</span>
+                      <span className="font-medium text-foreground truncate">{pref.name}</span>
                       <div className="flex items-center gap-2 shrink-0">
                         <button
                           type="button"
                           onClick={() => handleEdit(pref)}
-                          className="p-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-100 transition-colors"
+                          className="p-2 rounded-lg border border-border text-muted-foreground hover:bg-muted transition-colors"
                           title="Edit"
                           aria-label="Edit"
                         >
@@ -245,7 +245,7 @@ export default function PreferencesPage() {
                         <button
                           type="button"
                           onClick={() => handleDelete(pref.id)}
-                          className="p-2 rounded-lg border border-red-200 text-red-600 hover:bg-red-50 transition-colors"
+                          className="p-2 rounded-lg border border-destructive/50 text-destructive hover:bg-destructive/20 transition-colors"
                           title="Delete"
                           aria-label="Delete"
                         >
@@ -260,8 +260,8 @@ export default function PreferencesPage() {
           </div>
 
           {totalPages > 1 && (
-            <div className="flex items-center justify-between gap-4 px-4 py-3 border-t border-gray-100 bg-gray-50/50">
-              <p className="text-sm text-gray-500">
+            <div className="flex items-center justify-between gap-4 px-4 py-3 border-t border-border bg-muted/30">
+              <p className="text-sm text-muted-foreground">
                 Showing {(currentPage - 1) * PAGE_SIZE + 1}–{Math.min(currentPage * PAGE_SIZE, filteredPreferences.length)} of {filteredPreferences.length}
               </p>
               <div className="flex items-center gap-2">
@@ -269,18 +269,18 @@ export default function PreferencesPage() {
                   type="button"
                   onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                   disabled={currentPage === 1}
-                  className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-medium text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-3 py-1.5 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Previous
                 </button>
-                <span className="text-sm text-gray-600 px-2">
+                <span className="text-sm text-muted-foreground px-2">
                   Page {currentPage} of {totalPages}
                 </span>
                 <button
                   type="button"
                   onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                   disabled={currentPage === totalPages}
-                  className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-medium text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-3 py-1.5 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Next
                 </button>
@@ -299,13 +299,13 @@ export default function PreferencesPage() {
           }
         }}
       >
-        <div className="max-w-md w-full bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden">
-          <div className="px-6 py-4 border-b border-gray-100">
-            <h2 className="text-lg font-semibold text-gray-900">Add New Preference</h2>
-            <p className="text-sm text-gray-500 mt-0.5">Create a new category or tag.</p>
+        <div className="max-w-md w-full bg-card rounded-xl shadow-xl border border-border overflow-hidden">
+          <div className="px-6 py-4 border-b border-border">
+            <h2 className="text-lg font-semibold text-foreground">Add New Preference</h2>
+            <p className="text-sm text-muted-foreground mt-0.5">Create a new category or tag.</p>
           </div>
           <form onSubmit={handleAdd} className="p-6">
-            <label htmlFor="newPreferenceName" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="newPreferenceName" className="block text-sm font-medium text-foreground mb-2">
               Name
             </label>
             <input
@@ -316,13 +316,13 @@ export default function PreferencesPage() {
               required
               placeholder="Enter preference name"
               disabled={saving}
-              className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#3C3C6F]/20 focus:border-[#3C3C6F] disabled:opacity-60"
+              className="w-full px-4 py-2.5 rounded-lg border border-border bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary disabled:opacity-60"
             />
             <div className="flex gap-3 mt-6">
               <button
                 type="submit"
                 disabled={saving || !newName.trim()}
-                className="px-4 py-2.5 rounded-lg bg-[#3C3C6F] text-white font-medium hover:bg-[#2d2d52] disabled:opacity-50 transition-colors"
+                className="px-4 py-2.5 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 disabled:opacity-50 transition-colors"
               >
                 {saving ? 'Adding…' : 'Add Preference'}
               </button>
@@ -333,7 +333,7 @@ export default function PreferencesPage() {
                   setNewName('');
                 }}
                 disabled={saving}
-                className="px-4 py-2.5 rounded-lg border border-gray-200 text-gray-700 font-medium hover:bg-gray-50 disabled:opacity-50 transition-colors"
+                className="px-4 py-2.5 rounded-lg border border-border text-foreground font-medium hover:bg-muted disabled:opacity-50 transition-colors"
               >
                 Cancel
               </button>

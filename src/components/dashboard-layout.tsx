@@ -34,19 +34,19 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   const userRole = "Admin";
 
   return (
-    <div className="min-h-screen flex bg-gray-50">
+    <div className="min-h-screen flex bg-background">
       <Sidebar />
       <div className="flex-1 ml-72 flex flex-col min-w-0">
         {/* Header */}
-        <header className="sticky top-0 z-10 flex items-center justify-between gap-4 px-3 py-3 bg-white border-b border-gray-100">
-          <h1 className="font-bold">
+        <header className="sticky top-0 z-10 flex items-center justify-between gap-4 px-3 py-3 bg-card border-b border-border">
+          <h1 className="font-bold text-foreground">
             {pageTitle}
           </h1>
 
           <div className="flex items-center gap-2 shrink-0">
           <button
               type="button"
-              className="relative p-2 rounded-xl bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
+              className="relative p-2 rounded-xl bg-muted text-muted-foreground hover:bg-accent transition-colors"
               aria-label="Messages"
             >
               <HiOutlineChat className="w-6 h-6" />
@@ -54,7 +54,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             </button>   
             <button
               type="button"
-              className="relative rounded-lg bg-[#FCF4E0] p-2 text-[#DAA520] hover:bg-[#F9EBC8] transition-colors"
+              className="relative rounded-lg bg-amber-500/20 p-2 text-amber-400 hover:bg-amber-500/30 transition-colors"
               aria-label="Notifications"
             >
               <HiOutlineBell className="w-5 h-5" />
@@ -62,12 +62,12 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             </button>
 
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-teal-700 flex items-center justify-center text-white font-semibold text-sm shrink-0">
+              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground font-semibold text-sm shrink-0">
                 {userName.slice(0, 2).toUpperCase()}
               </div>
               <div className="text-left min-w-0">
-                <p className="text-sm font-bold truncate">{userName}</p>
-                <p className="text-xs text-[#A0A0A0]">{userRole}</p>
+                <p className="text-sm font-bold truncate text-foreground">{userName}</p>
+                <p className="text-xs text-muted-foreground">{userRole}</p>
               </div>
             </div>
           </div>

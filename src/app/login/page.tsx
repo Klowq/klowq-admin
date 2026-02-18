@@ -49,9 +49,9 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-700 p-8">
-      <div className="w-full max-w-[400px] bg-white rounded-lg shadow-lg p-8">
-        <h1 className="text-2xl font-semibold text-center text-gray-900 mb-6">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-600 to-purple-800 p-8">
+      <div className="w-full max-w-[400px] bg-card rounded-lg shadow-xl border border-border p-8">
+        <h1 className="text-2xl font-semibold text-center text-foreground mb-6">
           Admin Login
         </h1>
 
@@ -59,7 +59,7 @@ export default function LoginPage() {
           <div className="mb-5">
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700 mb-1.5"
+              className="block text-sm font-medium text-foreground mb-1.5"
             >
               Email
             </label>
@@ -72,14 +72,14 @@ export default function LoginPage() {
               required
               placeholder="Enter your email"
               autoComplete="email"
-              className="w-full px-3 py-2.5 border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              className="w-full px-3 py-2.5 border border-border bg-background rounded-md text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             />
           </div>
 
           <div className="mb-5">
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-700 mb-1.5"
+              className="block text-sm font-medium text-foreground mb-1.5"
             >
               Password
             </label>
@@ -92,12 +92,12 @@ export default function LoginPage() {
               required
               placeholder="Enter your password"
               autoComplete="current-password"
-              className="w-full px-3 py-2.5 border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              className="w-full px-3 py-2.5 border border-border bg-background rounded-md text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             />
           </div>
 
           {error && (
-            <div className="mb-4 px-3 py-2.5 bg-red-50 text-red-700 rounded-md text-sm">
+            <div className="mb-4 px-3 py-2.5 bg-destructive/20 text-destructive rounded-md text-sm">
               {error}
             </div>
           )}
@@ -105,14 +105,14 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 px-4 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="w-full py-3 px-4 bg-primary text-primary-foreground font-medium rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
 
-        <div className="mt-6 p-4 bg-gray-100 rounded-md text-sm text-gray-600">
-          <strong className="font-semibold text-gray-700">Default Credentials:</strong>
+        <div className="mt-6 p-4 bg-muted rounded-md text-sm text-muted-foreground">
+          <strong className="font-semibold text-foreground">Default Credentials:</strong>
           <br />
           Email: admin@klowq.com
           <br />

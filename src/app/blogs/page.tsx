@@ -33,14 +33,14 @@ export default function BlogsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto mb-8 mt-4 flex flex-col md:flex-row items-center gap-4">
           <div className="relative flex-1 w-full">
-            <GoSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" aria-hidden />
+            <GoSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5" aria-hidden />
             <input
               type="text"
               value={search}
               onChange={handleSearch}
               placeholder="Search insights..."
               aria-label="Search insights"
-              className="w-full pl-10 pr-4 py-3 border bg-white border-slate-200 rounded-2xl shadow-sm focus:ring-2 focus:ring-primary/40 focus:outline-none text-slate-700"
+              className="w-full pl-10 pr-4 py-3 border border-border bg-background rounded-2xl shadow-sm focus:ring-2 focus:ring-primary/40 focus:outline-none text-foreground"
             />
           </div>
           <div className="flex gap-4">
@@ -51,7 +51,7 @@ export default function BlogsPage() {
               id="filter-sort"
               value={sortFilter}
               onChange={handleSortFilter}
-              className="w-full px-4 py-3 border border-slate-200 rounded-2xl shadow-sm focus:ring-2 focus:ring-primary/40 text-slate-700 bg-white"
+              className="w-full px-4 py-3 border border-border rounded-2xl shadow-sm focus:ring-2 focus:ring-primary/40 text-foreground bg-background"
               title="Sort insights"
               aria-label="Sort insights"
             >
@@ -66,7 +66,7 @@ export default function BlogsPage() {
               id="duration-filter"
               value={durationFilter}
               onChange={handleDurationFilter}
-              className="w-full px-4 py-3 border border-slate-200 rounded-2xl shadow-sm focus:ring-2 focus:ring-primary/40 text-slate-700 bg-white"
+              className="w-full px-4 py-3 border border-border rounded-2xl shadow-sm focus:ring-2 focus:ring-primary/40 text-foreground bg-background"
               title="Filter by duration"
               aria-label="Filter by duration"
             >
@@ -92,7 +92,7 @@ export default function BlogsPage() {
             type="button"
             disabled={currentPage === 1}
             onClick={() => setCurrentPage((p: number) => p - 1)}
-            className="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-100 transition"
+            className="px-4 py-2 rounded-xl border border-border text-muted-foreground disabled:opacity-40 disabled:cursor-not-allowed hover:bg-muted transition"
           >
             Previous
           </button>
@@ -104,7 +104,7 @@ export default function BlogsPage() {
               className={`px-4 py-2 rounded-xl border transition ${
                 currentPage === i + 1
                   ? "bg-primary text-white border-primary"
-                  : "border-slate-200 text-slate-600 hover:bg-slate-100"
+                  : "border-border text-muted-foreground hover:bg-muted"
               }`}
             >
               {i + 1}
@@ -114,7 +114,7 @@ export default function BlogsPage() {
             type="button"
             disabled={currentPage === TOTAL_PAGES}
             onClick={() => setCurrentPage((p: number) => p + 1)}
-            className="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-100 transition"
+            className="px-4 py-2 rounded-xl border border-border text-muted-foreground disabled:opacity-40 disabled:cursor-not-allowed hover:bg-muted transition"
           >
             Next
           </button>

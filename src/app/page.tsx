@@ -60,51 +60,47 @@ const visitorsData = [
   { day: "30", visitors: 42345, patients: 2345 },
 ];
 
-const recentAppointments = [
+// Doctors data for dashboard table
+const doctorsData = [
   {
-    id: 1,
-    serial: "001",
-    date: "15 Jul 2025",
-    patientName: "John Doe",
-    doctor: "Dr. Sarah Smith",
-    room: "Room 101",
+    id: "DOC001",
+    name: "Dr. Sarah Smith",
+    specialization: "Cardiology",
+    title: "Senior Consultant",
+    blogCount: 12,
     status: "Completed",
   },
   {
-    id: 2,
-    serial: "002",
-    date: "16 Jul 2025",
-    patientName: "Jane Smith",
-    doctor: "Dr. Mike Johnson",
-    room: "Room 102",
+    id: "DOC002",
+    name: "Dr. Mike Johnson",
+    specialization: "General Medicine",
+    title: "Consultant",
+    blogCount: 8,
     status: "Pending",
   },
   {
-    id: 3,
-    serial: "003",
-    date: "17 Jul 2025",
-    patientName: "Robert Brown",
-    doctor: "Dr. Sarah Smith",
-    room: "Room 103",
-    status: "In Progress",
+    id: "DOC003",
+    name: "Dr. Lisa Wilson",
+    specialization: "Pediatrics",
+    title: "Senior Consultant",
+    blogCount: 15,
+    status: "In Review",
   },
   {
-    id: 4,
-    serial: "004",
-    date: "18 Jul 2025",
-    patientName: "Emily Davis",
-    doctor: "Dr. Lisa Wilson",
-    room: "Room 101",
-    status: "Scheduled",
+    id: "DOC004",
+    name: "Dr. James Chen",
+    specialization: "Orthopedics",
+    title: "Consultant",
+    blogCount: 3,
+    status: "Completed",
   },
   {
-    id: 5,
-    serial: "005",
-    date: "19 Jul 2025",
-    patientName: "James Wilson",
-    doctor: "Dr. Mike Johnson",
-    room: "Room 104",
-    status: "Pending",
+    id: "DOC005",
+    name: "Dr. Emily Davis",
+    specialization: "Dermatology",
+    title: "Associate Consultant",
+    blogCount: 0,
+    status: "Rejected",
   },
 ];
 
@@ -174,7 +170,7 @@ function StatCard({
   icon: React.ReactNode;
 }) {
   return (
-    <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md transition-shadow">
+    <div className="bg-card rounded-xl border border-border p-5 shadow-sm hover:shadow-md transition-shadow">
       <div className="flex justify-between items-start mb-4">
         <div
           className={`w-10 h-10 rounded-lg ${iconBg} ${iconColor} flex items-center justify-center text-lg font-bold`}
@@ -183,17 +179,17 @@ function StatCard({
         </div>
         <button
           type="button"
-          className="p-1 rounded hover:bg-gray-100 text-gray-400"
+          className="p-1 rounded hover:bg-muted text-muted-foreground"
           aria-label="Options"
         >
           <HiOutlineDotsVertical className="w-5 h-5" />
         </button>
       </div>
-      <p className="text-gray-500 text-sm font-medium mb-0.5">{title}</p>
-      <p className="text-2xl font-bold text-gray-900 mb-1">{value}</p>
+      <p className="text-muted-foreground text-sm font-medium mb-0.5">{title}</p>
+      <p className="text-2xl font-bold text-foreground mb-1">{value}</p>
       <div className="flex items-center gap-2 mb-3">
         <span
-          className={`text-sm font-medium flex items-center gap-0.5 ${trend === "up" ? "text-green-600" : "text-red-600"}`}
+          className={`text-sm font-medium flex items-center gap-0.5 ${trend === "up" ? "text-green-500" : "text-red-400"}`}
         >
           {trend === "up" ? (
             <HiOutlineTrendingUp className="w-4 h-4" />
@@ -202,7 +198,7 @@ function StatCard({
           )}
           {change}%
         </span>
-        <span className="text-gray-400 text-sm">{label}</span>
+        <span className="text-muted-foreground text-sm">{label}</span>
       </div>
       <div className="flex justify-end">
         {chartType === "bar" ? (
@@ -225,10 +221,10 @@ export default function Home() {
         {/* Welcome + quick actions */}
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">
+            <h2 className="text-2xl font-bold text-foreground">
               Welcome back, {userName}
             </h2>
-            <p className="text-gray-500 mt-0.5">
+            <p className="text-muted-foreground mt-0.5">
               Track, manage and forecast your patient reports and data.
             </p>
           </div>
@@ -256,17 +252,17 @@ export default function Home() {
         {/* Second row: Visitors chart + two patient cards */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
           {/* Visitors Statistics */}
-          <div className="lg:col-span-2 bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+          <div className="lg:col-span-2 bg-card rounded-xl border border-border p-5 shadow-sm">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-5">
               <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-lg bg-orange-100 text-orange-600 flex items-center justify-center text-lg font-bold">
+                <div className="w-10 h-10 rounded-lg bg-orange-500/20 text-orange-400 flex items-center justify-center text-lg font-bold">
                   V
                 </div>
-                <h3 className="font-bold text-gray-900">Visitors Statistics</h3>
+                <h3 className="font-bold text-foreground">Visitors Statistics</h3>
               </div>
               <select
                 aria-label="Select time range"
-                className="px-3 py-2 rounded-lg border border-gray-200 text-sm text-gray-700 bg-white focus:ring-2 focus:ring-[#3C3C6F]/20 focus:border-[#3C3C6F]"
+                className="px-3 py-2 rounded-lg border border-border text-sm text-foreground bg-background focus:ring-2 focus:ring-primary/20 focus:border-primary"
               >
                 <option>Last 30 days</option>
                 <option>Last 7 days</option>
@@ -275,16 +271,16 @@ export default function Home() {
             </div>
             <div className="flex flex-wrap gap-6 mb-5">
               <div>
-                <p className="text-gray-500 text-sm">Total Visitors</p>
-                <p className="text-xl font-bold text-gray-900">42,345</p>
-                <p className="text-green-600 text-sm font-medium flex items-center gap-1">
+                <p className="text-muted-foreground text-sm">Total Visitors</p>
+                <p className="text-xl font-bold text-foreground">42,345</p>
+                <p className="text-green-500 text-sm font-medium flex items-center gap-1">
                   47% ↑ From last month
                 </p>
               </div>
               <div>
-                <p className="text-gray-500 text-sm">Total Patients</p>
-                <p className="text-xl font-bold text-gray-900">2,345</p>
-                <p className="text-red-600 text-sm font-medium flex items-center gap-1">
+                <p className="text-muted-foreground text-sm">Total Patients</p>
+                <p className="text-xl font-bold text-foreground">2,345</p>
+                <p className="text-red-400 text-sm font-medium flex items-center gap-1">
                   10% ↓ From last month
                 </p>
               </div>
@@ -308,7 +304,7 @@ export default function Home() {
                     y1={y}
                     x2={400}
                     y2={y}
-                    stroke="#f0f0f0"
+                    className="stroke-border"
                     strokeWidth="0.5"
                   />
                 ))}
@@ -343,7 +339,7 @@ export default function Home() {
             <div className="flex justify-end -mt-2">
               <button
                 type="button"
-                className="p-1 rounded hover:bg-gray-100 text-gray-400"
+                className="p-1 rounded hover:bg-muted text-muted-foreground"
                 aria-label="Options"
               >
                 <HiOutlineDotsVertical className="w-5 h-5" />
@@ -353,25 +349,25 @@ export default function Home() {
 
           <div className="space-y-5">
             {/* Blood Cancer Patient */}
-            <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+            <div className="bg-card rounded-xl border border-border p-5 shadow-sm">
               <div className="flex justify-between items-start mb-4">
-                <div className="w-10 h-10 rounded-lg bg-red-100 text-red-600 flex items-center justify-center text-lg font-bold">
+                <div className="w-10 h-10 rounded-lg bg-red-500/20 text-red-400 flex items-center justify-center text-lg font-bold">
                   B
                 </div>
                 <button
                   type="button"
-                  className="p-1 rounded hover:bg-gray-100 text-gray-400"
+                  className="p-1 rounded hover:bg-muted text-muted-foreground"
                   aria-label="Options"
                 >
                   <HiOutlineDotsVertical className="w-5 h-5" />
                 </button>
               </div>
-              <h3 className="font-bold text-gray-900 mb-1">
+              <h3 className="font-bold text-foreground mb-1">
                 Blood Cancer Patient
               </h3>
-              <p className="text-2xl font-bold text-gray-900 mb-0.5">1,060</p>
-              <p className="text-green-600 text-sm font-medium mb-2">10% ↑</p>
-              <p className="text-gray-500 text-sm mb-4">
+              <p className="text-2xl font-bold text-foreground mb-0.5">1,060</p>
+              <p className="text-green-500 text-sm font-medium mb-2">10% ↑</p>
+              <p className="text-muted-foreground text-sm mb-4">
                 Patients has been admitted
               </p>
               <div className="flex items-end justify-around h-20 gap-1">
@@ -415,27 +411,27 @@ export default function Home() {
         </div>
 
         {/* Recent Patient Appointment */}
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-          <div className="p-5 border-b border-gray-100">
-            <h3 className="text-lg font-bold text-gray-900">
-              Recent Patient Appointment
+        <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+          <div className="p-5 border-b border-border">
+            <h3 className="text-lg font-bold text-foreground">
+              Doctors 
             </h3>
-            <p className="text-gray-500 text-sm mt-0.5">
-              Keep track of patient data and others information.
+            <p className="text-muted-foreground text-sm mt-0.5">
+              Keep track of doctor data and others information.
             </p>
             <div className="flex flex-wrap items-center gap-3 mt-4">
               <div className="relative flex-1 min-w-[200px]">
-                <HiOutlineSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <HiOutlineSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <input
                   type="search"
-                  placeholder="Search patient..."
-                  aria-label="Search patient"
-                  className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#3C3C6F]/20 focus:border-[#3C3C6F]"
+                  placeholder="Search doctor..."
+                  aria-label="Search doctor"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-border text-foreground bg-background placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                 />
               </div>
               <button
                 type="button"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border text-foreground hover:bg-muted transition-colors"
               >
                 <HiOutlineFilter className="w-5 h-5" />
                 Filters
@@ -445,50 +441,56 @@ export default function Home() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left">
               <thead>
-                <tr className="bg-gray-50 text-gray-500 font-medium border-b border-gray-100">
-                  <th className="py-3 px-4">Serial Number ↓</th>
-                  <th className="py-3 px-4">Date</th>
-                  <th className="py-3 px-4">Patient Name</th>
-                  <th className="py-3 px-4">Assign To Doctor</th>
-                  <th className="py-3 px-4">Room</th>
+                <tr className="bg-muted/50 text-muted-foreground font-medium border-b border-border">
+                  <th className="py-3 px-4">ID Number</th>
+                  <th className="py-3 px-4">Doctor Name</th>
+                  <th className="py-3 px-4">Specialization</th>
+                  <th className="py-3 px-4">Title</th>
+                  <th className="py-3 px-4">Blog(s)</th>
                   <th className="py-3 px-4">Status</th>
                   <th className="py-3 px-4">Action</th>
                 </tr>
               </thead>
               <tbody>
-                {recentAppointments.map((row) => (
+                {doctorsData.map((doctor) => (
                   <tr
-                    key={row.id}
-                    className="border-b border-gray-100 hover:bg-gray-50/50"
+                    key={doctor.id}
+                    className="border-b border-border hover:bg-muted/30"
                   >
-                    <td className="py-3 px-4 font-medium text-gray-900">
-                      {row.serial}
+                    <td className="py-3 px-4 font-medium text-foreground">
+                      {doctor.id}
                     </td>
-                    <td className="py-3 px-4 text-gray-600">{row.date}</td>
-                    <td className="py-3 px-4 font-medium text-gray-900">
-                      {row.patientName}
+                    <td className="py-3 px-4 text-foreground">
+                      {doctor.name}
                     </td>
-                    <td className="py-3 px-4 text-gray-600">{row.doctor}</td>
-                    <td className="py-3 px-4 text-gray-600">{row.room}</td>
+                    <td className="py-3 px-4 text-muted-foreground">
+                      {doctor.specialization}
+                    </td>
+                    <td className="py-3 px-4 text-muted-foreground">
+                      {doctor.title}
+                    </td>
+                    <td className="py-3 px-4 text-foreground">
+                      {doctor.blogCount}
+                    </td>
                     <td className="py-3 px-4">
-                      <span
+                    <span
                         className={`inline-flex px-2.5 py-1 rounded-full text-xs font-medium ${
-                          row.status === "Completed"
-                            ? "bg-green-100 text-green-700"
-                            : row.status === "Pending"
-                              ? "bg-amber-100 text-amber-700"
-                              : row.status === "In Progress"
-                                ? "bg-blue-100 text-blue-700"
-                                : "bg-gray-100 text-gray-700"
+                          doctor.status === "Completed"
+                            ? "bg-green-500/20 text-green-400"
+                            : doctor.status === "Pending"
+                              ? "bg-amber-500/20 text-amber-400"
+                              : doctor.status === "In Review"
+                                ? "bg-blue-500/20 text-blue-400"
+                                : "bg-red-500/20 text-red-400"
                         }`}
                       >
-                        {row.status}
+                        {doctor.status}
                       </span>
                     </td>
                     <td className="py-3 px-4">
                       <button
                         type="button"
-                        className="text-[#3C3C6F] font-medium hover:underline"
+                        className="text-primary font-medium hover:underline"
                       >
                         View
                       </button>

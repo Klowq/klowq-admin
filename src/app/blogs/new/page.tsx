@@ -121,22 +121,22 @@ export default function NewBlogPage() {
     <DashboardLayout>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Create New Blog Post</h1>
-          <p className="text-gray-500 mt-1">Add a new article with title, content, and optional banner image.</p>
+          <h1 className="text-2xl font-bold text-foreground">Create New Blog Post</h1>
+          <p className="text-muted-foreground mt-1">Add a new article with title, content, and optional banner image.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
-              <h2 className="font-semibold text-gray-900">Basic details</h2>
-              <p className="text-sm text-gray-500 mt-0.5">Title, author, and featured image.</p>
+          <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+            <div className="px-6 py-4 border-b border-border bg-muted/30">
+              <h2 className="font-semibold text-foreground">Basic details</h2>
+              <p className="text-sm text-muted-foreground mt-0.5">Title, author, and featured image.</p>
             </div>
             <div className="p-6 space-y-5">
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                <label className="block text-sm font-medium text-foreground mb-1.5">
                   <span className="inline-flex items-center gap-1.5">
-                    <HiOutlinePhotograph className="w-4 h-4 text-gray-500" />
+                    <HiOutlinePhotograph className="w-4 h-4 text-muted-foreground" />
                     Banner Image
                   </span>
                 </label>
@@ -151,7 +151,7 @@ export default function NewBlogPage() {
                 />
                 {formData.bannerImage ? (
                   <div className="space-y-2">
-                    <div className="rounded-lg overflow-hidden border border-gray-200">
+                    <div className="rounded-lg overflow-hidden border border-border">
                       <img
                         src={formData.bannerImage}
                         alt="Banner preview"
@@ -164,7 +164,7 @@ export default function NewBlogPage() {
                     <div className="flex items-center gap-2">
                       <label
                         htmlFor="bannerImage"
-                        className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 cursor-pointer transition-colors"
+                        className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-border text-sm font-medium text-foreground bg-background hover:bg-muted cursor-pointer transition-colors"
                       >
                         <HiOutlinePhotograph className="w-4 h-4" />
                         Change image
@@ -172,7 +172,7 @@ export default function NewBlogPage() {
                       <button
                         type="button"
                         onClick={clearBannerImage}
-                        className="px-3 py-2 rounded-lg border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+                        className="px-3 py-2 rounded-lg border border-border text-sm font-medium text-muted-foreground hover:bg-muted transition-colors"
                       >
                         Remove
                       </button>
@@ -181,18 +181,18 @@ export default function NewBlogPage() {
                 ) : (
                   <label
                     htmlFor="bannerImage"
-                    className="flex flex-col items-center justify-center w-full h-72 rounded-lg border-2 border-dashed border-gray-200 bg-gray-50/50 hover:bg-gray-50 hover:border-gray-300 cursor-pointer transition-colors"
+                    className="flex flex-col items-center justify-center w-full h-72 rounded-lg border-2 border-dashed border-border bg-muted/30 hover:bg-muted/50 hover:border-muted-foreground/30 cursor-pointer transition-colors"
                   >
-                    <HiOutlinePhotograph className="w-10 h-10 text-gray-400 mb-2" />
-                    <span className="text-sm font-medium text-gray-600">Click to choose an image</span>
-                    <span className="text-xs text-gray-400 mt-0.5">PNG, JPG, WebP, etc.</span>
+                    <HiOutlinePhotograph className="w-10 h-10 text-muted-foreground mb-2" />
+                    <span className="text-sm font-medium text-muted-foreground">Click to choose an image</span>
+                    <span className="text-xs text-muted-foreground mt-0.5">PNG, JPG, WebP, etc.</span>
                   </label>
                 )}
               </div>
 
 
               <div>
-                <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1.5">
+                <label htmlFor="title" className="block text-sm font-medium text-foreground mb-1.5">
                   Title
                 </label>
                 <input
@@ -203,7 +203,7 @@ export default function NewBlogPage() {
                   onChange={handleChange}
                   required
                   placeholder="Enter blog title"
-                  className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                  className="w-full px-4 py-2.5 rounded-lg border border-border bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                 />
               </div>
             </div>
@@ -216,12 +216,12 @@ export default function NewBlogPage() {
                   onChange={handleChange}
                   className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary/20"
                 />
-                <span className="text-sm font-medium text-gray-700">Featured blog</span>
+                <span className="text-sm font-medium text-foreground">Featured blog</span>
               </label>
 
               {formData.featured && (
                 <div>
-                  <label htmlFor="featuredDoctorId" className="block text-sm font-medium text-gray-700 mb-1.5">
+                  <label htmlFor="featuredDoctorId" className="block text-sm font-medium text-foreground mb-1.5">
                     Featured Doctor ID
                   </label>
                   <input
@@ -231,42 +231,42 @@ export default function NewBlogPage() {
                     value={formData.featuredDoctorId}
                     onChange={handleChange}
                     placeholder="Enter doctor ID"
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                    className="w-full px-4 py-2.5 rounded-lg border border-border bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                   />
                 </div>
               )}
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   <span className="inline-flex items-center gap-1.5">
-                    <HiOutlineTag className="w-4 h-4 text-gray-500" />
+                    <HiOutlineTag className="w-4 h-4 text-muted-foreground" />
                     Preferences (categories)
                   </span>
                 </label>
                 {preferences.length > 0 && (
                   <div className="relative mb-2">
-                    <HiOutlineSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" aria-hidden />
+                    <HiOutlineSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden />
                     <input
                       type="search"
                       value={preferenceSearch}
                       onChange={(e) => setPreferenceSearch(e.target.value)}
                       placeholder="Search preferences…"
                       aria-label="Search preferences"
-                      className="w-full pl-9 pr-3 py-2 rounded-lg border border-gray-200 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                      className="w-full pl-9 pr-3 py-2 rounded-lg border border-border bg-background text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                     />
                   </div>
                 )}
-                <div className="border border-gray-200 rounded-lg p-3 bg-gray-50/50 max-h-48 overflow-y-auto">
+                <div className="border border-border rounded-lg p-3 bg-muted/30 max-h-48 overflow-y-auto">
                   {preferences.length === 0 ? (
-                    <p className="text-sm text-gray-500">Loading preferences…</p>
+                    <p className="text-sm text-muted-foreground">Loading preferences…</p>
                   ) : filteredPreferences.length === 0 ? (
-                    <p className="text-sm text-gray-500">No preferences match your search.</p>
+                    <p className="text-sm text-muted-foreground">No preferences match your search.</p>
                   ) : (
                     <div className="flex flex-col gap-1">
                       {filteredPreferences.map((pref) => (
                         <label
                           key={pref.id}
-                          className="flex items-center gap-2 py-2 px-2 rounded-md hover:bg-gray-100 cursor-pointer transition-colors"
+                          className="flex items-center gap-2 py-2 px-2 rounded-md hover:bg-muted cursor-pointer transition-colors"
                         >
                           <input
                             type="checkbox"
@@ -274,14 +274,14 @@ export default function NewBlogPage() {
                             onChange={() => handlePreferenceToggle(pref.id)}
                             className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary/20"
                           />
-                          <span className="text-sm text-gray-700">{pref.name}</span>
+                          <span className="text-sm text-foreground">{pref.name}</span>
                         </label>
                       ))}
                     </div>
                   )}
                 </div>
                 {formData.selectedPreferences.length > 0 && (
-                  <p className="text-xs text-gray-500 mt-1.5">
+                  <p className="text-xs text-muted-foreground mt-1.5">
                     {formData.selectedPreferences.length} preference(s) selected
                   </p>
                 )}
@@ -289,13 +289,13 @@ export default function NewBlogPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
-              <h2 className="font-semibold text-gray-900">Content</h2>
-              <p className="text-sm text-gray-500 mt-0.5">Use the toolbar for bold, lists, and more.</p>
+          <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+            <div className="px-6 py-4 border-b border-border bg-muted/30">
+              <h2 className="font-semibold text-foreground">Content</h2>
+              <p className="text-sm text-muted-foreground mt-0.5">Use the toolbar for bold, lists, and more.</p>
             </div>
             <div className="p-6">
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Body</label>
+              <label className="block text-sm font-medium text-foreground mb-1.5">Body</label>
               <RichTextEditor
                 value={formData.content}
                 onChange={(html) => setFormData((prev) => ({ ...prev, content: html }))}
@@ -306,7 +306,7 @@ export default function NewBlogPage() {
           </div>
 
           {error && (
-            <div className="rounded-lg bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-700">
+            <div className="rounded-lg bg-destructive/20 border border-destructive/30 px-4 py-3 text-sm text-destructive">
               {error}
             </div>
           )}
@@ -321,7 +321,7 @@ export default function NewBlogPage() {
             </button>
             <Link
               href="/"
-              className="px-5 py-2.5 rounded-lg border border-gray-200 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+              className="px-5 py-2.5 rounded-lg border border-border text-foreground font-medium hover:bg-muted transition-colors"
             >
               Cancel
             </Link>

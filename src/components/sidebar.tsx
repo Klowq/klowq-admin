@@ -73,11 +73,11 @@ export function Sidebar() {
     children?.some((sub) => pathname === sub.href) ?? false;
 
   return (
-    <div className="flex w-72 fixed flex-col left-0 top-0 h-screen overflow-y-auto bg-white px-2 py-6 border-r border-gray-200">
+    <div className="flex w-72 fixed flex-col left-0 top-0 h-screen overflow-y-auto bg-card px-2 py-6 border-r border-border">
       {/* Logo */}
       <div className="flex items-center justify-center gap-2 mb-5 px-1">
           <Image src={logo} alt="Logo" width={25} height={25} />
-          <span className="text-2xl font-bold text-teal-800">Klowq</span>
+          <span className="text-2xl font-bold text-primary">Klowq</span>
         </div>
 
       {/* Nav */}
@@ -92,10 +92,10 @@ export function Sidebar() {
                   <Link
                     href={item.href}
                     className={`flex items-center gap-3 px-2 py-3 rounded-lg text-[0.9375rem] font-medium transition-colors ${
-                      active ? 'bg-teal-50 text-teal-600' : 'text-gray-700 hover:bg-gray-50'
+                      active ? 'bg-primary/15 text-primary' : 'text-foreground hover:bg-muted'
                     }`}
                   >
-                    <Icon className={`shrink-0 w-5 h-5 ${active ? 'text-teal-600' : 'text-gray-400'}`} />
+                    <Icon className={`shrink-0 w-5 h-5 ${active ? 'text-primary' : 'text-muted-foreground'}`} />
                     <span>{item.label}</span>
                   </Link>
                 </li>
@@ -109,15 +109,15 @@ export function Sidebar() {
                   type="button"
                   onClick={() => setExpanded((p) => ({ ...p, [item.label]: !isOpen }))}
                   className={`flex w-full items-center justify-between gap-3 px-2 py-3 rounded-lg text-[0.9375rem] font-medium transition-colors text-left ${
-                    activeChild ? 'text-teal-600 bg-teal-50/50' : 'text-gray-700 hover:bg-gray-50'
+                    activeChild ? 'text-primary bg-primary/10' : 'text-foreground hover:bg-muted'
                   }`}
                 >
                   <span className="flex items-center gap-3">
-                    <Icon className={`shrink-0 w-5 h-5 ${activeChild ? 'text-teal-600' : 'text-gray-400'}`} />
+                    <Icon className={`shrink-0 w-5 h-5 ${activeChild ? 'text-primary' : 'text-muted-foreground'}`} />
                     <span>{item.label}</span>
                   </span>
                   <HiOutlineChevronDown
-                    className={`shrink-0 w-4 h-4 text-gray-400 transition-transform ${isOpen ? '' : '-rotate-95'}`}
+                    className={`shrink-0 w-4 h-4 text-muted-foreground transition-transform ${isOpen ? '' : '-rotate-95'}`}
                   />
                 </button>
                 {isOpen && item.children && (
@@ -127,7 +127,7 @@ export function Sidebar() {
                         <Link
                           href={sub.href}
                           className={`block py-2 text-sm transition-colors ${
-                            isActive(sub.href) ? 'text-teal-600 font-medium' : 'text-gray-600 hover:text-gray-800'
+                            isActive(sub.href) ? 'text-primary font-medium' : 'text-muted-foreground hover:text-foreground'
                           }`}
                         >
                           {sub.label}
@@ -147,9 +147,9 @@ export function Sidebar() {
         <button
           type="button"
           onClick={handleSignOut}
-          className="flex w-full items-center gap-3 px-4 py-3 rounded-lg border-none bg-transparent text-gray-800 text-[0.9375rem] font-medium cursor-pointer hover:bg-gray-50 transition-colors text-left"
+          className="flex w-full items-center gap-3 px-4 py-3 rounded-lg border-none bg-transparent text-foreground text-[0.9375rem] font-medium cursor-pointer hover:bg-muted transition-colors text-left"
         >
-          <HiOutlineLogout className="text-gray-700 shrink-0 w-5 h-5" />
+          <HiOutlineLogout className="text-muted-foreground shrink-0 w-5 h-5" />
           <span>Sign Out</span>
         </button>
       </div>

@@ -43,6 +43,16 @@ export default function SettingsPage() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
+  // Sync appearance state with saved theme when settings mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('theme') as 'light' | 'dark' | 'system' | null;
+      if (saved) setAppearanceTheme(saved);
+    } catch {
+      // ignore
+    }
+  }, []);
+
   const handlePersonalSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
@@ -80,6 +90,17 @@ export default function SettingsPage() {
 
   const handleAppearanceChange = (theme: 'light' | 'dark' | 'system') => {
     setAppearanceTheme(theme);
+    const isDark =
+      theme === 'dark' ||
+      (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    if (typeof document !== 'undefined') {
+      document.documentElement.classList.toggle('dark', isDark);
+    }
+    try {
+      localStorage.setItem('theme', theme);
+    } catch {
+      // ignore localStorage errors (e.g. private mode)
+    }
     setMessage({ type: 'success', text: 'Appearance preference saved.' });
   };
 
@@ -113,8 +134,8 @@ export default function SettingsPage() {
                       onClick={() => setActiveTab(tab.id)}
                       className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-sm font-medium transition-colors ${
                         isActive
-                          ? 'bg-gray-100 text-gray-900'
-                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                          ? 'bg-muted text-foreground'
+                          : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                       }`}
                     >
                       <Icon className="w-5 h-5 shrink-0" />
@@ -127,11 +148,11 @@ export default function SettingsPage() {
           </nav>
 
           {/* Right content */}
-          <div className="flex-1 min-w-0 bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+          <div className="flex-1 min-w-0 bg-card rounded-xl border border-border shadow-sm overflow-hidden">
             {message && (
               <div
                 className={`mx-4 mt-4 px-4 py-2 rounded-lg text-sm ${
-                  message.type === 'success' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-700'
+                  message.type === 'success' ? 'bg-green-500/20 text-green-400' : 'bg-destructive/20 text-destructive'
                 }`}
               >
                 {message.text}
@@ -140,20 +161,20 @@ export default function SettingsPage() {
 
             {activeTab === 'personal' && (
               <div className="p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-6">Personal Info</h2>
+                <h2 className="text-xl font-semibold text-foreground mb-6">Personal Info</h2>
                 <div className="flex flex-col sm:flex-row sm:items-start gap-6 mb-8">
                   <div className="relative shrink-0">
-                    <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center text-3xl font-semibold text-gray-600 overflow-hidden">
+                    <div className="w-24 h-24 rounded-full bg-muted flex items-center justify-center text-3xl font-semibold text-muted-foreground overflow-hidden">
                       {personalForm.fullname ? personalForm.fullname.slice(0, 2).toUpperCase() : '?'}
                     </div>
-                    <label className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-gray-900 flex items-center justify-center cursor-pointer hover:bg-gray-800 transition-colors">
-                      <HiOutlineCamera className="w-4 h-4 text-white" />
+                    <label className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-primary flex items-center justify-center cursor-pointer hover:bg-primary/90 transition-colors">
+                      <HiOutlineCamera className="w-4 h-4 text-primary-foreground" />
                       <input type="file" accept="image/*" className="sr-only" aria-label="Change avatar" />
                     </label>
                   </div>
                   <form onSubmit={handlePersonalSubmit} className="flex-1 space-y-4 max-w-md">
                     <div>
-                      <label htmlFor="settings-email" className="block text-sm font-medium text-gray-700 mb-1.5">
+                      <label htmlFor="settings-email" className="block text-sm font-medium text-foreground mb-1.5">
                         Email
                       </label>
                       <input
@@ -161,11 +182,11 @@ export default function SettingsPage() {
                         id="settings-email"
                         value={personalForm.email}
                         onChange={(e) => setPersonalForm((p) => ({ ...p, email: e.target.value }))}
-                        className="w-full px-4 py-2.5 rounded-lg border border-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900/20 focus:border-gray-900"
+                        className="w-full px-4 py-2.5 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                       />
                     </div>
                     <div>
-                      <label htmlFor="settings-fullname" className="block text-sm font-medium text-gray-700 mb-1.5">
+                      <label htmlFor="settings-fullname" className="block text-sm font-medium text-foreground mb-1.5">
                         Fullname
                       </label>
                       <input
@@ -173,11 +194,11 @@ export default function SettingsPage() {
                         id="settings-fullname"
                         value={personalForm.fullname}
                         onChange={(e) => setPersonalForm((p) => ({ ...p, fullname: e.target.value }))}
-                        className="w-full px-4 py-2.5 rounded-lg border border-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900/20 focus:border-gray-900"
+                        className="w-full px-4 py-2.5 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                       />
                     </div>
                     <div>
-                      <label htmlFor="settings-phone" className="block text-sm font-medium text-gray-700 mb-1.5">
+                      <label htmlFor="settings-phone" className="block text-sm font-medium text-foreground mb-1.5">
                         Phone number
                       </label>
                       <input
@@ -186,13 +207,13 @@ export default function SettingsPage() {
                         value={personalForm.phone}
                         onChange={(e) => setPersonalForm((p) => ({ ...p, phone: e.target.value }))}
                         placeholder="Phone number"
-                        className="w-full px-4 py-2.5 rounded-lg border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900/20 focus:border-gray-900"
+                        className="w-full px-4 py-2.5 rounded-lg border border-border bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                       />
                     </div>
                     <button
                       type="submit"
                       disabled={saving}
-                      className="px-5 py-2.5 rounded-lg bg-gray-900 text-white font-medium hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-900/40 disabled:opacity-50 transition-colors"
+                      className="px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/40 disabled:opacity-50 transition-colors"
                     >
                       {saving ? 'Saving…' : 'Confirm'}
                     </button>
@@ -203,10 +224,10 @@ export default function SettingsPage() {
 
             {activeTab === 'password' && (
               <div className="p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-6">Change Password</h2>
+                <h2 className="text-xl font-semibold text-foreground mb-6">Change Password</h2>
                 <form onSubmit={handlePasswordSubmit} className="space-y-4 max-w-md">
                   <div>
-                    <label htmlFor="current-password" className="block text-sm font-medium text-gray-700 mb-1.5">
+                    <label htmlFor="current-password" className="block text-sm font-medium text-foreground mb-1.5">
                       Current password
                     </label>
                     <input
@@ -215,11 +236,11 @@ export default function SettingsPage() {
                       value={passwordForm.currentPassword}
                       onChange={(e) => setPasswordForm((p) => ({ ...p, currentPassword: e.target.value }))}
                       required
-                      className="w-full px-4 py-2.5 rounded-lg border border-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900/20 focus:border-gray-900"
+                      className="w-full px-4 py-2.5 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                     />
                   </div>
                   <div>
-                    <label htmlFor="new-password" className="block text-sm font-medium text-gray-700 mb-1.5">
+                    <label htmlFor="new-password" className="block text-sm font-medium text-foreground mb-1.5">
                       New password
                     </label>
                     <input
@@ -228,11 +249,11 @@ export default function SettingsPage() {
                       value={passwordForm.newPassword}
                       onChange={(e) => setPasswordForm((p) => ({ ...p, newPassword: e.target.value }))}
                       required
-                      className="w-full px-4 py-2.5 rounded-lg border border-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900/20 focus:border-gray-900"
+                      className="w-full px-4 py-2.5 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                     />
                   </div>
                   <div>
-                    <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700 mb-1.5">
+                    <label htmlFor="confirm-password" className="block text-sm font-medium text-foreground mb-1.5">
                       Confirm new password
                     </label>
                     <input
@@ -241,13 +262,13 @@ export default function SettingsPage() {
                       value={passwordForm.confirmPassword}
                       onChange={(e) => setPasswordForm((p) => ({ ...p, confirmPassword: e.target.value }))}
                       required
-                      className="w-full px-4 py-2.5 rounded-lg border border-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900/20 focus:border-gray-900"
+                      className="w-full px-4 py-2.5 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                     />
                   </div>
                   <button
                     type="submit"
                     disabled={saving}
-                    className="px-5 py-2.5 rounded-lg bg-gray-900 text-white font-medium hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-900/40 disabled:opacity-50 transition-colors"
+                    className="px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/40 disabled:opacity-50 transition-colors"
                   >
                     {saving ? 'Saving…' : 'Confirm'}
                   </button>
@@ -257,8 +278,8 @@ export default function SettingsPage() {
 
             {activeTab === 'appearance' && (
               <div className="p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-6">Appearance</h2>
-                <p className="text-sm text-gray-500 mb-4">Choose how the app looks on your device.</p>
+                <h2 className="text-xl font-semibold text-foreground mb-6">Appearance</h2>
+                <p className="text-sm text-muted-foreground mb-4">Choose how the app looks on your device.</p>
                 <div className="flex flex-wrap gap-3">
                   {(['light', 'dark', 'system'] as const).map((theme) => (
                     <button
@@ -267,8 +288,8 @@ export default function SettingsPage() {
                       onClick={() => handleAppearanceChange(theme)}
                       className={`px-4 py-2.5 rounded-lg border text-sm font-medium capitalize transition-colors ${
                         appearanceTheme === theme
-                          ? 'bg-gray-900 text-white border-gray-900'
-                          : 'border-gray-200 text-gray-700 hover:bg-gray-50'
+                          ? 'bg-primary text-primary-foreground border-primary'
+                          : 'border-border text-foreground hover:bg-muted'
                       }`}
                     >
                       {theme}
@@ -280,8 +301,8 @@ export default function SettingsPage() {
 
             {activeTab === 'delete' && (
               <div className="p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-2">Delete Account</h2>
-                <p className="text-sm text-gray-500 mb-6">
+                <h2 className="text-xl font-semibold text-foreground mb-2">Delete Account</h2>
+                <p className="text-sm text-muted-foreground mb-6">
                   Once you delete your account, there is no going back. All your data will be permanently removed.
                 </p>
                 <button

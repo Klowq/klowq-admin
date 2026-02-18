@@ -9,7 +9,7 @@ interface AppModalProps {
 export default function AppModal({ children, mode = false, onClose }: AppModalProps) {
   return mode ? (
     <div
-      className="bg-gray-400/20 flex items-center justify-center backdrop-blur-xl z-50 h-screen w-screen fixed inset-0 p-4"
+      className="bg-black/50 flex items-center justify-center backdrop-blur-xl z-50 h-screen w-screen fixed inset-0 p-4"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
