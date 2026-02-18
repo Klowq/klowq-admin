@@ -4,22 +4,30 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { DashboardLayout } from '@/components/dashboard-layout';
+import { RichTextEditor } from '@/components/rich-text-editor';
 import { Preference } from '@/types/preference';
+import { HiOutlinePhotograph, HiOutlineSearch, HiOutlineTag } from 'react-icons/hi';
 
 export default function NewBlogPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({
     title: '',
     content: '',
-    author: '',
     bannerImage: '',
     featured: false,
     featuredDoctorId: '',
     selectedPreferences: [] as string[],
   });
   const [preferences, setPreferences] = useState<Preference[]>([]);
+  const [preferenceSearch, setPreferenceSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const filteredPreferences = preferenceSearch.trim()
+    ? preferences.filter((pref) =>
+        pref.name.toLowerCase().includes(preferenceSearch.trim().toLowerCase())
+      )
+    : preferences;
 
   useEffect(() => {
     fetchPreferences();
@@ -43,20 +51,16 @@ export default function NewBlogPage() {
     setError(null);
 
     try {
-      // Get preference names from selected IDs
       const selectedPreferenceNames = formData.selectedPreferences
-        .map(id => preferences.find(p => p.id === id)?.name)
+        .map((id) => preferences.find((p) => p.id === id)?.name)
         .filter((name): name is string => name !== undefined);
 
       const response = await fetch('/api/blogs', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           title: formData.title,
           content: formData.content,
-          author: formData.author,
           bannerImage: formData.bannerImage || undefined,
           featured: formData.featured,
           featuredDoctorId: formData.featuredDoctorId || undefined,
@@ -68,7 +72,6 @@ export default function NewBlogPage() {
         const data = await response.json();
         throw new Error(data.error || 'Failed to create blog');
       }
-
       router.push('/');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to create blog');
@@ -89,182 +92,242 @@ export default function NewBlogPage() {
     setFormData({
       ...formData,
       selectedPreferences: formData.selectedPreferences.includes(preferenceId)
-        ? formData.selectedPreferences.filter(id => id !== preferenceId)
+        ? formData.selectedPreferences.filter((id) => id !== preferenceId)
         : [...formData.selectedPreferences, preferenceId],
     });
   };
 
+  const handleBannerImagePick = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      setError('Please select an image file (e.g. JPEG, PNG).');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setFormData((prev) => ({ ...prev, bannerImage: reader.result as string }));
+      setError(null);
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+  };
+
+  const clearBannerImage = () => {
+    setFormData((prev) => ({ ...prev, bannerImage: '' }));
+  };
+
   return (
     <DashboardLayout>
-      <div className="container">
-        <div className="header">
-          <h1>Create New Blog Post</h1>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-8">
+          <h1 className="text-2xl font-bold text-gray-900">Create New Blog Post</h1>
+          <p className="text-gray-500 mt-1">Add a new article with title, content, and optional banner image.</p>
         </div>
 
-        <div className="card">
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="title">Title</label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              value={formData.title}
-              onChange={handleChange}
-              required
-              placeholder="Enter blog title"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="author">Author</label>
-            <input
-              type="text"
-              id="author"
-              name="author"
-              value={formData.author}
-              onChange={handleChange}
-              required
-              placeholder="Enter author name"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="bannerImage">Banner Image URL</label>
-            <input
-              type="url"
-              id="bannerImage"
-              name="bannerImage"
-              value={formData.bannerImage}
-              onChange={handleChange}
-              placeholder="https://example.com/image.jpg"
-            />
-            {formData.bannerImage && (
-              <img 
-                src={formData.bannerImage} 
-                alt="Banner preview" 
-                style={{ 
-                  marginTop: '0.5rem', 
-                  maxWidth: '100%', 
-                  maxHeight: '200px', 
-                  borderRadius: '6px',
-                  objectFit: 'cover'
-                }} 
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = 'none';
-                }}
-              />
-            )}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="content">Content</label>
-            <textarea
-              id="content"
-              name="content"
-              value={formData.content}
-              onChange={handleChange}
-              required
-              placeholder="Write your blog content here..."
-            />
-          </div>
-
-          <div className="form-group">
-            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
-              <input
-                type="checkbox"
-                id="featured"
-                name="featured"
-                checked={formData.featured}
-                onChange={handleChange}
-              />
-              Featured Blog
-            </label>
-          </div>
-
-          {formData.featured && (
-            <div className="form-group">
-              <label htmlFor="featuredDoctorId">Featured Doctor ID</label>
-              <input
-                type="text"
-                id="featuredDoctorId"
-                name="featuredDoctorId"
-                value={formData.featuredDoctorId}
-                onChange={handleChange}
-                placeholder="Enter doctor ID"
-              />
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+            <div className="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
+              <h2 className="font-semibold text-gray-900">Basic details</h2>
+              <p className="text-sm text-gray-500 mt-0.5">Title, author, and featured image.</p>
             </div>
-          )}
+            <div className="p-6 space-y-5">
 
-          <div className="form-group">
-            <label>Preferences</label>
-            <div style={{
-              border: '1px solid #ddd',
-              borderRadius: '6px',
-              padding: '0.75rem',
-              maxHeight: '200px',
-              overflowY: 'auto',
-              backgroundColor: '#fff'
-            }}>
-              {preferences.length === 0 ? (
-                <p style={{ color: '#666', fontSize: '0.9rem' }}>Loading preferences...</p>
-              ) : (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                  {preferences.map((pref) => (
-                    <label
-                      key={pref.id}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.5rem',
-                        cursor: 'pointer',
-                        padding: '0.5rem',
-                        borderRadius: '4px',
-                        transition: 'background-color 0.2s',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = '#f5f5f5';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'transparent';
-                      }}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={formData.selectedPreferences.includes(pref.id)}
-                        onChange={() => handlePreferenceToggle(pref.id)}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  <span className="inline-flex items-center gap-1.5">
+                    <HiOutlinePhotograph className="w-4 h-4 text-gray-500" />
+                    Banner Image
+                  </span>
+                </label>
+                <input
+                  type="file"
+                  id="bannerImage"
+                  name="bannerImage"
+                  accept="image/*"
+                  onChange={handleBannerImagePick}
+                  className="sr-only"
+                  aria-label="Choose banner image"
+                />
+                {formData.bannerImage ? (
+                  <div className="space-y-2">
+                    <div className="rounded-lg overflow-hidden border border-gray-200">
+                      <img
+                        src={formData.bannerImage}
+                        alt="Banner preview"
+                        className="w-full h-72 object-cover"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).style.display = 'none';
+                        }}
                       />
-                      <span>{pref.name}</span>
-                    </label>
-                  ))}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <label
+                        htmlFor="bannerImage"
+                        className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 cursor-pointer transition-colors"
+                      >
+                        <HiOutlinePhotograph className="w-4 h-4" />
+                        Change image
+                      </label>
+                      <button
+                        type="button"
+                        onClick={clearBannerImage}
+                        className="px-3 py-2 rounded-lg border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <label
+                    htmlFor="bannerImage"
+                    className="flex flex-col items-center justify-center w-full h-72 rounded-lg border-2 border-dashed border-gray-200 bg-gray-50/50 hover:bg-gray-50 hover:border-gray-300 cursor-pointer transition-colors"
+                  >
+                    <HiOutlinePhotograph className="w-10 h-10 text-gray-400 mb-2" />
+                    <span className="text-sm font-medium text-gray-600">Click to choose an image</span>
+                    <span className="text-xs text-gray-400 mt-0.5">PNG, JPG, WebP, etc.</span>
+                  </label>
+                )}
+              </div>
+
+
+              <div>
+                <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Title
+                </label>
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
+                  value={formData.title}
+                  onChange={handleChange}
+                  required
+                  placeholder="Enter blog title"
+                  className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                />
+              </div>
+            </div>
+            <div className="px-6 pb-6 space-y-5">
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  name="featured"
+                  checked={formData.featured}
+                  onChange={handleChange}
+                  className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary/20"
+                />
+                <span className="text-sm font-medium text-gray-700">Featured blog</span>
+              </label>
+
+              {formData.featured && (
+                <div>
+                  <label htmlFor="featuredDoctorId" className="block text-sm font-medium text-gray-700 mb-1.5">
+                    Featured Doctor ID
+                  </label>
+                  <input
+                    type="text"
+                    id="featuredDoctorId"
+                    name="featuredDoctorId"
+                    value={formData.featuredDoctorId}
+                    onChange={handleChange}
+                    placeholder="Enter doctor ID"
+                    className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                  />
                 </div>
               )}
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <span className="inline-flex items-center gap-1.5">
+                    <HiOutlineTag className="w-4 h-4 text-gray-500" />
+                    Preferences (categories)
+                  </span>
+                </label>
+                {preferences.length > 0 && (
+                  <div className="relative mb-2">
+                    <HiOutlineSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" aria-hidden />
+                    <input
+                      type="search"
+                      value={preferenceSearch}
+                      onChange={(e) => setPreferenceSearch(e.target.value)}
+                      placeholder="Search preferences…"
+                      aria-label="Search preferences"
+                      className="w-full pl-9 pr-3 py-2 rounded-lg border border-gray-200 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                    />
+                  </div>
+                )}
+                <div className="border border-gray-200 rounded-lg p-3 bg-gray-50/50 max-h-48 overflow-y-auto">
+                  {preferences.length === 0 ? (
+                    <p className="text-sm text-gray-500">Loading preferences…</p>
+                  ) : filteredPreferences.length === 0 ? (
+                    <p className="text-sm text-gray-500">No preferences match your search.</p>
+                  ) : (
+                    <div className="flex flex-col gap-1">
+                      {filteredPreferences.map((pref) => (
+                        <label
+                          key={pref.id}
+                          className="flex items-center gap-2 py-2 px-2 rounded-md hover:bg-gray-100 cursor-pointer transition-colors"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={formData.selectedPreferences.includes(pref.id)}
+                            onChange={() => handlePreferenceToggle(pref.id)}
+                            className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary/20"
+                          />
+                          <span className="text-sm text-gray-700">{pref.name}</span>
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                {formData.selectedPreferences.length > 0 && (
+                  <p className="text-xs text-gray-500 mt-1.5">
+                    {formData.selectedPreferences.length} preference(s) selected
+                  </p>
+                )}
+              </div>
             </div>
-            {formData.selectedPreferences.length > 0 && (
-              <small style={{ color: '#666', fontSize: '0.85rem', marginTop: '0.25rem', display: 'block' }}>
-                {formData.selectedPreferences.length} preference(s) selected
-              </small>
-            )}
+          </div>
+
+          <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+            <div className="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
+              <h2 className="font-semibold text-gray-900">Content</h2>
+              <p className="text-sm text-gray-500 mt-0.5">Use the toolbar for bold, lists, and more.</p>
+            </div>
+            <div className="p-6">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">Body</label>
+              <RichTextEditor
+                value={formData.content}
+                onChange={(html) => setFormData((prev) => ({ ...prev, content: html }))}
+                placeholder="Write your blog content here..."
+                className="min-h-[320px]"
+              />
+            </div>
           </div>
 
           {error && (
-            <div style={{ color: '#e00', marginBottom: '1rem' }}>
+            <div className="rounded-lg bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-700">
               {error}
             </div>
           )}
 
-          <div className="form-actions">
-            <button type="submit" className="btn btn-primary" disabled={loading}>
-              {loading ? 'Creating...' : 'Create Blog'}
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              type="submit"
+              disabled={loading}
+              className="px-5 py-2.5 rounded-lg bg-primary text-white font-medium hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              {loading ? 'Creating…' : 'Create Blog'}
             </button>
-            <Link href="/" className="btn btn-secondary">
+            <Link
+              href="/"
+              className="px-5 py-2.5 rounded-lg border border-gray-200 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+            >
               Cancel
             </Link>
           </div>
         </form>
-        </div>
       </div>
     </DashboardLayout>
   );
 }
-

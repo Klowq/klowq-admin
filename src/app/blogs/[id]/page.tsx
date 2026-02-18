@@ -11,9 +11,9 @@ const ARTICLE_IMG = "https://images.unsplash.com/photo-1659353886114-9aa119aef5a
 export default function InsightPage() {
   return (
     <DashboardLayout>
-      <div className="py-16">
+       <div className="md:flex mx-auto p-3 py-6">
         <div className="flex-auto p-3">
-          <article className="max-w-3xl mx-auto bg-white overflow-hidden">
+          <article className="max-w-3xl mx-auto overflow-hidden">
             <div className="relative bg-black/10 overflow-hidden rounded-lg h-72 w-full">
               <Image src={ARTICLE_IMG} alt="Future of Web Development" fill className="object-cover h-full w-full" />
             </div>
@@ -51,6 +51,36 @@ export default function InsightPage() {
               </div>
             </div>
           </article>
+        </div>
+        <div className="sm:w-[400px]">
+          <div className="sticky top-5 space-y-3 p-3">
+            <div className="font-bold text-lg md:text-2xl">Related Insights</div>
+            {Array.from({ length: 3 }).map((_, i) => (
+              <Link key={i} href="/blogs/The-Future-of-Anonymous-Healthcare">
+                <div className="flex items-center justify-between rounded">
+                  <div>
+                    <div className="flex items-center space-x-4 text-sm text-gray-500 mb-3">
+                      <span className="px-3 py-1 text-xs rounded-full bg-gray-100 text-gray-700 font-medium">Technology</span>
+                      <div className="flex text-xs items-center space-x-1">
+                        <BsClock className="w-4 h-4" />
+                        <span>5 min read</span>
+                      </div>
+                    </div>
+                    <h2 className="font-bold text-sm line-clamp-1 text-gray-900 mb-2">The Future of Web Development: Trends to Watch in 2025</h2>
+                    <p className="text-sm line-clamp-2 text-gray-600 mb-4">
+                      Explore the latest trends shaping the web development landscape, from AI integration to new frameworks that are revolutionizing how we build applications.
+                    </p>
+                    <div className="flex text-xs border-b pb-4 items-center space-x-3 text-gray-500 mb-6">
+                      <LuUser className="w-4 h-4 text-gray-400" />
+                      <span className="font-medium text-gray-800">Sarah Johnson</span>
+                      <span>•</span>
+                      <span>Jan 15, 2025</span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </DashboardLayout>
