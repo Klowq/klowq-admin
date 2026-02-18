@@ -1,0 +1,338 @@
+[
+  {
+    "id": "pref-1763532181051-0",
+    "name": "Cardiology",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2026-02-18T12:23:04.353Z"
+  },
+  {
+    "id": "pref-1763532181051-1",
+    "name": "Mental Health & Wellness",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2026-02-18T12:23:07.158Z"
+  },
+  {
+    "id": "pref-1763532181051-2",
+    "name": "Nutrition & Diet",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2026-02-18T13:31:15.975Z"
+  },
+  {
+    "id": "pref-1763532181051-3",
+    "name": "Fitness & Physical Therapy",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-4",
+    "name": "Women's Health",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-5",
+    "name": "Men's Health",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-6",
+    "name": "Pediatrics & Child Care",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-7",
+    "name": "Pregnancy & Maternal Health",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-8",
+    "name": "Chronic Illness Management",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-9",
+    "name": "Health Technology & Telemedicine",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-10",
+    "name": "Medical Research & Innovations",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-11",
+    "name": "Surgery & Surgical Procedures",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-12",
+    "name": "Skin Care & Dermatology",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-13",
+    "name": "Dental & Oral Health",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-14",
+    "name": "Alternative Medicine",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-15",
+    "name": "Emergency Medicine & First Aid",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-16",
+    "name": "Vaccinations & Immunization",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-17",
+    "name": "Cancer Awareness & Oncology",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-18",
+    "name": "Mental Disorders & Therapy Support",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-19",
+    "name": "Public Health & Disease Prevention",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-20",
+    "name": "Medication Guides & Drug Awareness",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-21",
+    "name": "Medical Career & Education",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-22",
+    "name": "Patient Care & Hospital Experience",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-23",
+    "name": "Health Insurance & Medical Finance",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-24",
+    "name": "Rehabilitation & Recovery",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-25",
+    "name": "AI in Healthcare",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-26",
+    "name": "Medical Robotics",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-27",
+    "name": "Digital Health Records (EHR)",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-28",
+    "name": "Gut Health & Microbiome",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-29",
+    "name": "Sleep Disorders & Insomnia",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-30",
+    "name": "Autoimmune Diseases",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-31",
+    "name": "COVID-19 & Infectious Diseases",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-32",
+    "name": "Rare Diseases & Genetic Disorders",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-33",
+    "name": "Plastic & Reconstructive Surgery",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-34",
+    "name": "Physiotherapy & Sports Medicine",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-35",
+    "name": "Hormonal Health & Endocrinology",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-36",
+    "name": "Blood Donation & Organ Transplant",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-37",
+    "name": "Health & Wellness Coaching",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-38",
+    "name": "Medical Ethics & Law",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-39",
+    "name": "Healthcare Startups & Innovations",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-40",
+    "name": "Sexual & Reproductive Health",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-41",
+    "name": "Contraception & Family Planning",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-42",
+    "name": "Menstrual Health & PMS",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-43",
+    "name": "PCOS & Hormonal Disorders",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-44",
+    "name": "Endometriosis Awareness",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-45",
+    "name": "Fertility & IVF Support",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-46",
+    "name": "Maternal Mental Health",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-47",
+    "name": "Breastfeeding & Postpartum Care",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-48",
+    "name": "Cervical & Breast Cancer Awareness",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-49",
+    "name": "Body Positivity & Women's Wellness",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-50",
+    "name": "Sexually Transmitted Infections (STIs)",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-51",
+    "name": "Safe Sex Education",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.051Z"
+  },
+  {
+    "id": "pref-1763532181051-52",
+    "name": "Intimate Hygiene & Care",
+    "createdAt": "2025-11-19T06:03:01.051Z",
+    "updatedAt": "2025-11-19T06:03:01.052Z"
+  },
+  {
+    "id": "pref-1763532181052-53",
+    "name": "Menopause & Perimenopause Health",
+    "createdAt": "2025-11-19T06:03:01.052Z",
+    "updatedAt": "2025-11-19T06:03:01.052Z"
+  },
+  {
+    "id": "pref-1763532181052-54",
+    "name": "Relationship & Emotional Well-being",
+    "createdAt": "2025-11-19T06:03:01.052Z",
+    "updatedAt": "2025-11-19T06:03:01.052Z"
+  },
+  {
+    "id": "pref-1763532181052-55",
+    "name": "Sexual Consent & Safety",
+    "createdAt": "2025-11-19T06:03:01.052Z",
+    "updatedAt": "2025-11-19T06:03:01.052Z"
+  }
+]
