@@ -41,10 +41,15 @@ export async function getBlogById(id: string): Promise<Blog | null> {
 // Create a new blog
 export async function createBlog(blogData: Omit<Blog, 'id' | 'createdAt' | 'updatedAt'>): Promise<Blog> {
   const blogs = await getBlogs();
+  const {
+    featured = false, // Use value from blogData, but default to false
+    preferences = [], // Use value from blogData, but default to empty array
+    ...rest
+  } = blogData;
   const newBlog: Blog = {
-    featured: false, // Default to false if not provided
-    preferences: [], // Default to empty array if not provided
-    ...blogData,
+    ...rest,
+    featured,
+    preferences,
     id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
