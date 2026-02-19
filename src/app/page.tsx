@@ -3,8 +3,6 @@
 import { useSession } from "next-auth/react";
 import { DashboardLayout } from "@/components/dashboard-layout";
 import {
-  HiOutlineChat,
-  HiOutlineBell,
   HiOutlineDotsVertical,
   HiOutlineSearch,
   HiOutlineFilter,
@@ -12,8 +10,11 @@ import {
   HiOutlineTrendingDown,
   HiOutlineUser,
   HiOutlineDocumentText,
+  HiOutlineEye,
 } from "react-icons/hi";
 import { FaUserDoctor } from "react-icons/fa6";
+import { Button } from "@/components/organisms/Button";
+import Link from "next/link";
 
 // Mock data for dashboard
 const summaryCards = [
@@ -102,6 +103,46 @@ const doctorsData = [
     blogCount: 0,
     status: "Rejected",
   },
+  {
+    id: "DOC006",
+    name: "Dr. Michael Brown",
+    specialization: "Cardiology",
+    title: "Senior Consultant",
+    blogCount: 10,
+    status: "In Review",
+  },
+  {
+    id: "DOC007",
+    name: "Dr. David Lee",
+    specialization: "Pediatrics",
+    title: "Senior Consultant",
+    blogCount: 12,
+    status: "Rejected",
+  },
+  {
+    id: "DOC008",
+    name: "Dr. Olivia Wilson",
+    specialization: "Cardiology",
+    title: "Senior Consultant",
+    blogCount: 10,
+    status: "Pending",
+  },
+  {
+    id: "DOC009",
+    name: "Dr. Daniel Garcia",
+    specialization: "Cardiology",
+    title: "Senior Consultant",
+    blogCount: 10,
+    status: "Completed",
+  },
+  {
+    id: "DOC010",
+    name: "Dr. Sophia Martinez",
+    specialization: "Cardiology",
+    title: "Senior Consultant",
+    blogCount: 10,
+    status: "Completed",
+  },
 ];
 
 function SparklineBar({ values }: { values: number[] }) {
@@ -185,7 +226,9 @@ function StatCard({
           <HiOutlineDotsVertical className="w-5 h-5" />
         </button>
       </div>
-      <p className="text-muted-foreground text-sm font-medium mb-0.5">{title}</p>
+      <p className="text-muted-foreground text-sm font-medium mb-0.5">
+        {title}
+      </p>
       <p className="text-2xl font-bold text-foreground mb-1">{value}</p>
       <div className="flex items-center gap-2 mb-3">
         <span
@@ -258,7 +301,9 @@ export default function Home() {
                 <div className="w-10 h-10 rounded-lg bg-orange-500/20 text-orange-400 flex items-center justify-center text-lg font-bold">
                   V
                 </div>
-                <h3 className="font-bold text-foreground">Visitors Statistics</h3>
+                <h3 className="font-bold text-foreground">
+                  Visitors Statistics
+                </h3>
               </div>
               <select
                 aria-label="Select time range"
@@ -411,14 +456,23 @@ export default function Home() {
         </div>
 
         {/* Recent Patient Appointment */}
-        <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+        <div className="bg-card rounded-xl mb-6 border border-border shadow-sm overflow-hidden">
           <div className="p-5 border-b border-border">
-            <h3 className="text-lg font-bold text-foreground">
-              Doctors 
-            </h3>
-            <p className="text-muted-foreground text-sm mt-0.5">
-              Keep track of doctor data and others information.
-            </p>
+            <div className="flex justify-between items-center">
+              <div>
+                <h3 className="text-lg font-bold text-foreground">Doctors</h3>
+                <p className="text-muted-foreground text-sm mt-0.5">
+                  Keep track of doctor data and others information.
+                </p>
+              </div>
+              <div>
+                <Link href="/doctors">
+                  <Button variant="secondary">
+                    View All
+                  </Button>
+                </Link>
+              </div>
+            </div>
             <div className="flex flex-wrap items-center gap-3 mt-4">
               <div className="relative flex-1 min-w-[200px]">
                 <HiOutlineSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
@@ -460,9 +514,7 @@ export default function Home() {
                     <td className="py-3 px-4 font-medium text-foreground">
                       {doctor.id}
                     </td>
-                    <td className="py-3 px-4 text-foreground">
-                      {doctor.name}
-                    </td>
+                    <td className="py-3 px-4 text-foreground">{doctor.name}</td>
                     <td className="py-3 px-4 text-muted-foreground">
                       {doctor.specialization}
                     </td>
@@ -473,7 +525,7 @@ export default function Home() {
                       {doctor.blogCount}
                     </td>
                     <td className="py-3 px-4">
-                    <span
+                      <span
                         className={`inline-flex px-2.5 py-1 rounded-full text-xs font-medium ${
                           doctor.status === "Completed"
                             ? "bg-green-500/20 text-green-400"
