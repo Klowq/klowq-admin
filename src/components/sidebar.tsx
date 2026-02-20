@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { signOut } from 'next-auth/react';
-import { useState } from 'react';
+import { useState, type ComponentType } from 'react';
 import {
   HiOutlineHome,
   HiOutlineFolder,
@@ -12,6 +12,7 @@ import {
   HiOutlineChevronDown,
   HiOutlineChevronRight,
   HiOutlineLogout,
+  HiOutlineTag,
 } from 'react-icons/hi';
 import Image from 'next/image';
 import logo from '@assets/images/logo.png';
@@ -20,7 +21,7 @@ type SubItem = { label: string; href: string };
 
 type MenuItem = {
   label: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: ComponentType<{ className?: string }>;
   children?: SubItem[];
   href?: string;
 };
@@ -41,7 +42,7 @@ const menuList: MenuItem[] = [
   },
   {
     label: 'Manage Preferences',
-    icon: HiOutlineCog,
+    icon: HiOutlineTag,
     href: '/preferences',
   },
   {
@@ -63,14 +64,13 @@ const menuList: MenuItem[] = [
 export function Sidebar() {
   const pathname = usePathname();
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
-
   const handleSignOut = async () => {
     await signOut({ redirect: true, callbackUrl: '/login' });
   };
 
   const isActive = (href: string) => pathname === href;
   const hasActiveChild = (children?: SubItem[]) =>
-    children?.some((sub) => pathname === sub.href) ?? false;
+    !!children?.some((sub) => pathname.startsWith(sub.href));
 
   return (
     <div className="flex w-72 fixed flex-col left-0 top-0 h-screen overflow-y-auto bg-card px-2 py-6 border-r border-border">

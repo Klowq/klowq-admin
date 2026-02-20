@@ -1,21 +1,20 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { DashboardLayout } from "@/components/dashboard-layout";
 import {
   HiOutlineDotsVertical,
   HiOutlineSearch,
   HiOutlineFilter,
-  HiOutlineTrendingUp,
-  HiOutlineTrendingDown,
   HiOutlineUser,
   HiOutlineDocumentText,
-  HiOutlineEye,
 } from "react-icons/hi";
 import { FaUserDoctor } from "react-icons/fa6";
 import { Button } from "@/components/organisms/Button";
 import Link from "next/link";
-
+import { StatCard } from "@/components/stat-card";
+import type { Doctor } from "@/types/doctor";
 // Mock data for dashboard
 const summaryCards = [
   {
@@ -61,202 +60,35 @@ const visitorsData = [
   { day: "30", visitors: 42345, patients: 2345 },
 ];
 
-// Doctors data for dashboard table
-const doctorsData = [
-  {
-    id: "DOC001",
-    name: "Dr. Sarah Smith",
-    specialization: "Cardiology",
-    title: "Senior Consultant",
-    blogCount: 12,
-    status: "Completed",
-  },
-  {
-    id: "DOC002",
-    name: "Dr. Mike Johnson",
-    specialization: "General Medicine",
-    title: "Consultant",
-    blogCount: 8,
-    status: "Pending",
-  },
-  {
-    id: "DOC003",
-    name: "Dr. Lisa Wilson",
-    specialization: "Pediatrics",
-    title: "Senior Consultant",
-    blogCount: 15,
-    status: "In Review",
-  },
-  {
-    id: "DOC004",
-    name: "Dr. James Chen",
-    specialization: "Orthopedics",
-    title: "Consultant",
-    blogCount: 3,
-    status: "Completed",
-  },
-  {
-    id: "DOC005",
-    name: "Dr. Emily Davis",
-    specialization: "Dermatology",
-    title: "Associate Consultant",
-    blogCount: 0,
-    status: "Rejected",
-  },
-  {
-    id: "DOC006",
-    name: "Dr. Michael Brown",
-    specialization: "Cardiology",
-    title: "Senior Consultant",
-    blogCount: 10,
-    status: "In Review",
-  },
-  {
-    id: "DOC007",
-    name: "Dr. David Lee",
-    specialization: "Pediatrics",
-    title: "Senior Consultant",
-    blogCount: 12,
-    status: "Rejected",
-  },
-  {
-    id: "DOC008",
-    name: "Dr. Olivia Wilson",
-    specialization: "Cardiology",
-    title: "Senior Consultant",
-    blogCount: 10,
-    status: "Pending",
-  },
-  {
-    id: "DOC009",
-    name: "Dr. Daniel Garcia",
-    specialization: "Cardiology",
-    title: "Senior Consultant",
-    blogCount: 10,
-    status: "Completed",
-  },
-  {
-    id: "DOC010",
-    name: "Dr. Sophia Martinez",
-    specialization: "Cardiology",
-    title: "Senior Consultant",
-    blogCount: 10,
-    status: "Completed",
-  },
-];
-
-function SparklineBar({ values }: { values: number[] }) {
-  const max = Math.max(...values);
-  return (
-    <div className="flex items-end gap-0.5 h-8">
-      {values.map((v, i) => (
-        <div
-          key={i}
-          className="w-1.5 rounded-sm bg-primary min-h-[2px]"
-          style={{ height: `${(v / max) * 100}%` }}
-        />
-      ))}
-    </div>
-  );
-}
-
-function SparklineLine({ values }: { values: number[] }) {
-  const max = Math.max(...values);
-  const min = Math.min(...values);
-  const range = max - min || 1;
-  const w = 60;
-  const h = 28;
-  const points = values
-    .map(
-      (v, i) =>
-        `${(i / (values.length - 1)) * w},${h - ((v - min) / range) * h}`,
-    )
-    .join(" ");
-  return (
-    <svg width={w} height={h} className="overflow-visible">
-      <polyline
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        points={points}
-        className="text-primary"
-      />
-    </svg>
-  );
-}
-
-function StatCard({
-  title,
-  value,
-  change,
-  trend,
-  label,
-  iconBg,
-  iconColor,
-  sparkline,
-  chartType = "bar",
-  icon,
-}: {
-  title: string;
-  value: string;
-  change: number;
-  trend: "up" | "down";
-  label: string;
-  iconBg: string;
-  iconColor: string;
-  sparkline: number[];
-  chartType?: "bar" | "line";
-  icon: React.ReactNode;
-}) {
-  return (
-    <div className="bg-card rounded-xl border border-border p-5 shadow-sm hover:shadow-md transition-shadow">
-      <div className="flex justify-between items-start mb-4">
-        <div
-          className={`w-10 h-10 rounded-lg ${iconBg} ${iconColor} flex items-center justify-center text-lg font-bold`}
-        >
-          {icon}
-        </div>
-        <button
-          type="button"
-          className="p-1 rounded hover:bg-muted text-muted-foreground"
-          aria-label="Options"
-        >
-          <HiOutlineDotsVertical className="w-5 h-5" />
-        </button>
-      </div>
-      <p className="text-muted-foreground text-sm font-medium mb-0.5">
-        {title}
-      </p>
-      <p className="text-2xl font-bold text-foreground mb-1">{value}</p>
-      <div className="flex items-center gap-2 mb-3">
-        <span
-          className={`text-sm font-medium flex items-center gap-0.5 ${trend === "up" ? "text-green-500" : "text-red-400"}`}
-        >
-          {trend === "up" ? (
-            <HiOutlineTrendingUp className="w-4 h-4" />
-          ) : (
-            <HiOutlineTrendingDown className="w-4 h-4" />
-          )}
-          {change}%
-        </span>
-        <span className="text-muted-foreground text-sm">{label}</span>
-      </div>
-      <div className="flex justify-end">
-        {chartType === "bar" ? (
-          <SparklineBar values={sparkline} />
-        ) : (
-          <SparklineLine values={sparkline} />
-        )}
-      </div>
-    </div>
-  );
-}
 
 export default function Home() {
   const { data: session } = useSession();
   const userName = session?.user?.name ?? "Richard";
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [loadingDoctors, setLoadingDoctors] = useState(true);
+  const [doctorsError, setDoctorsError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        setLoadingDoctors(true);
+        const res = await fetch("/api/doctors");
+        if (!res.ok) {
+          throw new Error("Failed to fetch doctors");
+        }
+        const data: Doctor[] = await res.json();
+        setDoctors(data.reverse().slice(0, 10));
+      } catch (err) {
+        setDoctorsError(
+          err instanceof Error ? err.message : "Failed to fetch doctors",
+        );
+      } finally {
+        setLoadingDoctors(false);
+      }
+    };
+
+    fetchDoctors();
+  }, []);
 
   return (
     <DashboardLayout>
@@ -473,24 +305,6 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-            <div className="flex flex-wrap items-center gap-3 mt-4">
-              <div className="relative flex-1 min-w-[200px]">
-                <HiOutlineSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                <input
-                  type="search"
-                  placeholder="Search doctor..."
-                  aria-label="Search doctor"
-                  className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-border text-foreground bg-background placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                />
-              </div>
-              <button
-                type="button"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border text-foreground hover:bg-muted transition-colors"
-              >
-                <HiOutlineFilter className="w-5 h-5" />
-                Filters
-              </button>
-            </div>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left">
@@ -506,49 +320,73 @@ export default function Home() {
                 </tr>
               </thead>
               <tbody>
-                {doctorsData.map((doctor) => (
-                  <tr
-                    key={doctor.id}
-                    className="border-b border-border hover:bg-muted/30"
-                  >
-                    <td className="py-3 px-4 font-medium text-foreground">
-                      {doctor.id}
-                    </td>
-                    <td className="py-3 px-4 text-foreground">{doctor.name}</td>
-                    <td className="py-3 px-4 text-muted-foreground">
-                      {doctor.specialization}
-                    </td>
-                    <td className="py-3 px-4 text-muted-foreground">
-                      {doctor.title}
-                    </td>
-                    <td className="py-3 px-4 text-foreground">
-                      {doctor.blogCount}
-                    </td>
-                    <td className="py-3 px-4">
-                      <span
-                        className={`inline-flex px-2.5 py-1 rounded-full text-xs font-medium ${
-                          doctor.status === "Completed"
-                            ? "bg-green-500/20 text-green-400"
-                            : doctor.status === "Pending"
-                              ? "bg-amber-500/20 text-amber-400"
-                              : doctor.status === "In Review"
-                                ? "bg-blue-500/20 text-blue-400"
-                                : "bg-red-500/20 text-red-400"
-                        }`}
-                      >
-                        {doctor.status}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4">
-                      <button
-                        type="button"
-                        className="text-primary font-medium hover:underline"
-                      >
-                        View
-                      </button>
+                {loadingDoctors && (
+                  <tr>
+                    <td
+                      colSpan={7}
+                      className="py-6 px-4 text-center text-muted-foreground"
+                    >
+                      Loading doctors...
                     </td>
                   </tr>
-                ))}
+                )}
+                {!loadingDoctors && doctorsError && (
+                  <tr>
+                    <td
+                      colSpan={7}
+                      className="py-6 px-4 text-center text-destructive"
+                    >
+                      {doctorsError}
+                    </td>
+                  </tr>
+                )}
+                {!loadingDoctors &&
+                  !doctorsError &&
+                  doctors.map((doctor) => (
+                    <tr
+                      key={doctor.id}
+                      className="border-b border-border hover:bg-muted/30"
+                    >
+                      <td className="py-3 px-4 font-medium text-foreground">
+                        {doctor.id}
+                      </td>
+                      <td className="py-3 px-4 text-foreground">
+                        {doctor.name}
+                      </td>
+                      <td className="py-3 px-4 text-muted-foreground">
+                        {doctor.specialization}
+                      </td>
+                      <td className="py-3 px-4 text-muted-foreground">
+                        {doctor.title}
+                      </td>
+                      <td className="py-3 px-4 text-foreground">
+                        {doctor.blogCount}
+                      </td>
+                      <td className="py-3 px-4">
+                        <span
+                          className={`inline-flex px-2.5 py-1 rounded-full text-xs font-medium ${
+                            doctor.status === "Verified"
+                              ? "bg-green-500/20 text-green-400"
+                              : doctor.status === "Pending"
+                                ? "bg-amber-500/20 text-amber-400"
+                                : doctor.status === "In Review"
+                                  ? "bg-blue-500/20 text-blue-400"
+                                  : "bg-red-500/20 text-red-400"
+                          }`}
+                        >
+                          {doctor.status}
+                        </span>
+                      </td>
+                      <td className="py-3 px-4">
+                        <button
+                          type="button"
+                          className="text-primary font-medium hover:underline"
+                        >
+                          View
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>

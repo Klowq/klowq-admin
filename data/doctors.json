@@ -1,0 +1,163 @@
+[
+  {
+    "id": "DOC001",
+    "name": "Dr. Sarah Smith",
+    "specialization": "Cardiology",
+    "title": "Senior Consultant",
+    "blogCount": 12,
+    "status": "Verified"
+  },
+  {
+    "id": "DOC002",
+    "name": "Dr. Mike Johnson",
+    "specialization": "General Medicine",
+    "title": "Consultant",
+    "blogCount": 8,
+    "status": "Verified"
+  },
+  {
+    "id": "DOC003",
+    "name": "Dr. Lisa Wilson",
+    "specialization": "Pediatrics",
+    "title": "Senior Consultant",
+    "blogCount": 15,
+    "status": "In Review"
+  },
+  {
+    "id": "DOC004",
+    "name": "Dr. James Chen",
+    "specialization": "Orthopedics",
+    "title": "Consultant",
+    "blogCount": 3,
+    "status": "Pending"
+  },
+  {
+    "id": "DOC005",
+    "name": "Dr. Emily Davis",
+    "specialization": "Dermatology",
+    "title": "Associate Consultant",
+    "blogCount": 0,
+    "status": "Rejected"
+  },
+  {
+    "id": "DOC006",
+    "name": "Dr. Michael Brown",
+    "specialization": "Neurology",
+    "title": "Senior Consultant",
+    "blogCount": 5,
+    "status": "Verified"
+  },
+  {
+    "id": "DOC007",
+    "name": "Dr. Olivia Wilson",
+    "specialization": "Psychiatry",
+    "title": "Consultant",
+    "blogCount": 4,
+    "status": "Pending"
+  },
+  {
+    "id": "DOC008",
+    "name": "Dr. Daniel Garcia",
+    "specialization": "Endocrinology",
+    "title": "Consultant",
+    "blogCount": 6,
+    "status": "Verified"
+  },
+  {
+    "id": "DOC009",
+    "name": "Dr. Sophia Martinez",
+    "specialization": "Gynecology",
+    "title": "Senior Consultant",
+    "blogCount": 9,
+    "status": "Verified"
+  },
+  {
+    "id": "DOC010",
+    "name": "Dr. David Lee",
+    "specialization": "Pediatrics",
+    "title": "Consultant",
+    "blogCount": 2,
+    "status": "In Review"
+  },
+  {
+    "id": "DOC011",
+    "name": "Dr. Hannah Green",
+    "specialization": "Rheumatology",
+    "title": "Associate Consultant",
+    "blogCount": 1,
+    "status": "Pending"
+  },
+  {
+    "id": "DOC012",
+    "name": "Dr. Andrew Scott",
+    "specialization": "Oncology",
+    "title": "Consultant",
+    "blogCount": 7,
+    "status": "Verified"
+  },
+  {
+    "id": "DOC013",
+    "name": "Dr. Laura White",
+    "specialization": "Pulmonology",
+    "title": "Senior Consultant",
+    "blogCount": 11,
+    "status": "Verified"
+  },
+  {
+    "id": "DOC014",
+    "name": "Dr. Chris Evans",
+    "specialization": "Gastroenterology",
+    "title": "Consultant",
+    "blogCount": 3,
+    "status": "Pending"
+  },
+  {
+    "id": "DOC015",
+    "name": "Dr. Megan Fox",
+    "specialization": "Cardiology",
+    "title": "Senior Consultant",
+    "blogCount": 10,
+    "status": "Verified"
+  },
+  {
+    "id": "DOC016",
+    "name": "Dr. Jason Park",
+    "specialization": "Endocrinology",
+    "title": "Associate Consultant",
+    "blogCount": 2,
+    "status": "Rejected"
+  },
+  {
+    "id": "DOC017",
+    "name": "Dr. Emma Watson",
+    "specialization": "Dermatology",
+    "title": "Consultant",
+    "blogCount": 4,
+    "status": "Verified"
+  },
+  {
+    "id": "DOC018",
+    "name": "Dr. Robert King",
+    "specialization": "Nephrology",
+    "title": "Consultant",
+    "blogCount": 3,
+    "status": "In Review"
+  },
+  {
+    "id": "DOC019",
+    "name": "Dr. Chloe Brown",
+    "specialization": "Psychiatry",
+    "title": "Senior Consultant",
+    "blogCount": 6,
+    "status": "Verified"
+  },
+  {
+    "id": "DOC020",
+    "name": "Dr. Ethan Miller",
+    "specialization": "General Medicine",
+    "title": "Consultant",
+    "blogCount": 1,
+    "status": "Pending"
+  }
+]
+

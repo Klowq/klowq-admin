@@ -18,7 +18,7 @@ export interface CreateBlogDto {
   bannerImage?: string;
   featured?: boolean;
   featuredDoctorId?: string;
-  preferences?: string[];
+  preferences: string[];
 }
 
 export interface UpdateBlogDto {
